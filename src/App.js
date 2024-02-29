@@ -17,29 +17,42 @@ const getData = async (url) => {
   }
 };
 
+const setActive = (elementId, prevElementId) => {
+  document.getElementById(elementId).classList.toggle("active");
+  document.getElementById(prevElementId).classList.toggle("active");
+};
+
 const Weather = ({ info, hour, minute, now }) => {
+  const [celcius, setCelcius] = useState(true);
+
   return (
     <>
       <div className="weather-container">
-        <div className="search-container">
-          <span class="material-symbols-outlined">search</span>
-          <input type="text" placeholder="Search for places..." />
-        </div>
         <div className="weather-card">
-          <div className="img-container">
-            <img src={info.current.condition.icon} id="weather-img" alt="img" />
+          <div className="search-container">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" placeholder="Search for places..." />
           </div>
-          <span className="temperature">
-            {info.current.temp_c}
-            <span className="celcius">°C</span>
-          </span>
-          <p className="time">
-            <strong>{now}</strong>, {hour}:{minute}
-          </p>
-          <hr />
-          <p className="weather-condition">{info.current.condition.text}</p>
-          <div className="place-container">
-            <p className="place">{info.location.name}</p>
+          <div className="weather-info">
+            <div className="img-container">
+              <img
+                src={info.current.condition.icon}
+                id="weather-img"
+                alt="img"
+              />
+            </div>
+            <span className="temperature">
+              {celcius ? info.current.temp_c : info.current.temp_f}
+              <span className="celcius">{celcius ? "℃" : "℉"}</span>
+            </span>
+            <p className="time">
+              <strong>{now}</strong>, {hour}:{minute}
+            </p>
+            <hr />
+            <p className="weather-condition">{info.current.condition.text}</p>
+            <div className="place-container">
+              <p className="place">{info.location.name}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -51,11 +64,28 @@ const Weather = ({ info, hour, minute, now }) => {
               <a href="/week">Week</a>
             </div>
             <div className="temp-mode">
-              <button>°C</button>
-              <button>°F</button>
+              <button
+                className="active"
+                id="celcius-btn"
+                onClick={() => {
+                  setCelcius(true);
+                  setActive("celcius-btn", "fahrenheit-btn");
+                }}
+              >
+                °C
+              </button>
+              <button
+                id="fahrenheit-btn"
+                onClick={() => {
+                  setCelcius(false);
+                  setActive("fahrenheit-btn", "celcius-btn");
+                }}
+              >
+                °F
+              </button>
             </div>
           </nav>
-          <div>
+          <div className="today">
             <h1>Today's Highlights</h1>
           </div>
         </div>
