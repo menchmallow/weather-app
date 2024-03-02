@@ -94,8 +94,25 @@ function App() {
         ) : (
           <h1>Error! Pls allow location or refresh</h1>
         )}
-        <div></div>
       </div>
+      <footer>
+        <a
+          href="https://www.weatherapi.com/"
+          title="Free Weather API"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Powered by WeatherAPI.com
+        </a>
+        <a
+          href="https://www.flaticon.com/free-icons/sun"
+          title="sun icons"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Icons created by Freepik - Flaticon
+        </a>
+      </footer>
     </div>
   );
 }

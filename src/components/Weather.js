@@ -66,7 +66,64 @@ const Today = ({ info }) => {
   );
 };
 
+const WeekCard = ({ info }) => {
+  return (
+    <div>
+      <div className="info-cards">
+        <div className="uv card">
+          <p className="card-title">UV Index</p>
+          <div className="card-info-container">
+            <img src={sun} alt="sun" />
+            <p className="card-info">{info.day.uv}</p>
+          </div>
+        </div>
+        <div className="wind-status card">
+          <p className="card-title">Wind Status</p>
+          <div className="card-info-container">
+            <img src={wind} alt="wind" />
+            <p className="card-info">{info.day.maxwind_kph} km/h</p>
+          </div>
+        </div>
+        <div className="sun card">
+          <p className="card-title">Sunrise & Sunset</p>
+          <div className="sunrise">
+            <img src={sunrise} alt="sunrise logo" />
+            <p>{info.astro.sunrise}</p>
+          </div>
+          <div className="sunset">
+            <img src={sunset} alt="sunset logo" />
+            <p>{info.astro.sunset}</p>
+          </div>
+        </div>
+        <div className="humidity card">
+          <p className="card-title">Humidity</p>
+          <div className="card-info-container">
+            <img src={humidity} alt="humidity" />
+            <p className="card-info">{info.day.avghumidity}%</p>
+          </div>
+        </div>
+        <div className="visibility card">
+          <p className="card-title">Visibility</p>
+          <div className="card-info-container">
+            <img src={visibility} alt="visibility" />
+            <p className="card-info">{info.day.avgvis_km} km</p>
+          </div>
+        </div>
+        <div className="rain card">
+          <p className="card-title">Chance of Rain</p>
+          <div className="card-info-container">
+            <img src={rain} alt="rain" />
+            <p className="card-info">{info.day.daily_chance_of_rain}%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Week = ({ info, celcius }) => {
+  const [weatherInfo, setWeatherInfo] = useState();
+
   const week = [
     "Sunday",
     "Monday",
@@ -77,20 +134,39 @@ const Week = ({ info, celcius }) => {
     "Saturday",
   ];
 
+  const activeCard = (id) => {
+    const cards = document.getElementsByClassName("week-card");
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].classList.remove("active-week");
+    }
+    document.getElementById(id).classList.add("active-week");
+  };
+
   return (
-    <div className="week">
-      {info.forecast.forecastday.map((item) => {
-        const date = new Date(item.date);
-        return (
-          <div className="week-card" key={item.date}>
-            <p>{week[date.getDay()]}</p>
-            <img src={item.day.condition.icon} alt="icon" />
-            <p>
-              {celcius ? item.day.maxtemp_c + "°" : item.day.maxtemp_f + "°"}
-            </p>
-          </div>
-        );
-      })}
+    <div className="week-container">
+      <div className="week" id="week">
+        {info.forecast.forecastday.map((item) => {
+          const date = new Date(item.date);
+          return (
+            <div
+              className="week-card"
+              key={item.date}
+              id={item.date}
+              onClick={() => {
+                setWeatherInfo(item);
+                activeCard(item.date);
+              }}
+            >
+              <p>{week[date.getDay()]}</p>
+              <img src={item.day.condition.icon} alt="icon" />
+              <p>
+                {celcius ? item.day.maxtemp_c + "°" : item.day.maxtemp_f + "°"}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+      <div>{weatherInfo ? <WeekCard info={weatherInfo} /> : ""}</div>
     </div>
   );
 };
@@ -129,7 +205,10 @@ const Weather = ({ info, hour, minute, now, inputRef, searchBtnClick }) => {
               <span className="celcius">{celcius ? "℃" : "℉"}</span>
             </span>
             <p className="time">
-              <strong>{now}</strong>, {hour}:{minute}
+              <strong>{now}</strong>,{" "}
+              <span className="hr-min">
+                {hour}:{minute}
+              </span>
             </p>
             <hr />
             <p className="weather-condition">{info.current.condition.text}</p>
