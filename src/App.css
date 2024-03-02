@@ -28,6 +28,7 @@ body {
 
 .weather-container {
   width: 25vw;
+  overflow: hidden;
 }
 
 .weather-card {
@@ -58,6 +59,10 @@ body {
   width: 80%;
 }
 
+.img-container {
+  margin: 10%;
+}
+
 .temperature {
   font-size: 4rem;
   display: flex;
@@ -74,6 +79,8 @@ body {
 .more-info-container {
   background-color: rgb(245, 245, 245);
   width: 100%;
+  border-radius: 35px;
+  overflow-y: auto;
 }
 
 .more-info {
@@ -85,9 +92,20 @@ nav {
   font-size: 1.2rem;
 }
 
-nav a {
+nav span {
   text-decoration: none;
-  color: gray;
+  opacity: 0.5;
+  font-weight: 500;
+}
+
+nav span:hover {
+  cursor: pointer;
+}
+
+.active-nav {
+  opacity: 1;
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.1rem;
 }
 
 .links {
@@ -101,14 +119,84 @@ nav a {
   gap: 1rem;
 }
 
-.temp-mode button {
+.temp-btn {
+  background-color: white;
   border-radius: 50%;
   border: none;
   transform: scale(1.3);
-  background-color: white;
 }
 
-button .active {
-  background-color: black;
+.temp-btn:hover {
+  cursor: pointer;
+}
+
+.sun img {
+  max-width: 18%;
+}
+
+.sunrise {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.sunset {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.info-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: white;
+  margin: 2%;
+  padding: 2%;
+  width: 15vw;
+  min-height: 20vh;
+  border-radius: 25px;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  opacity: 0.5;
+}
+
+.card-info {
+  font-size: 1.8rem;
+}
+
+.card-info-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.card-info-container img {
+  max-width: 30%;
+  transform: scale(0.8);
+}
+
+.active {
   color: white;
+  background-color: black;
+}
+
+.week {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2%;
+}
+
+.week-card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  margin: 0.5%;
+  border-radius: 25px;
 }

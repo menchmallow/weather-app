@@ -1,5 +1,6 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Weather from "./components/Weather";
 
 const baseUrl = " http://api.weatherapi.com/v1";
 const apiKey = "ce304afefbb042a8875113054242802";
@@ -13,85 +14,8 @@ const getData = async (url) => {
       return json;
     }
   } catch (err) {
-    console.log(err);
+    alert("Place not found");
   }
-};
-
-const setActive = (elementId, prevElementId) => {
-  document.getElementById(elementId).classList.toggle("active");
-  document.getElementById(prevElementId).classList.toggle("active");
-};
-
-const Weather = ({ info, hour, minute, now }) => {
-  const [celcius, setCelcius] = useState(true);
-
-  return (
-    <>
-      <div className="weather-container">
-        <div className="weather-card">
-          <div className="search-container">
-            <span class="material-symbols-outlined">search</span>
-            <input type="text" placeholder="Search for places..." />
-          </div>
-          <div className="weather-info">
-            <div className="img-container">
-              <img
-                src={info.current.condition.icon}
-                id="weather-img"
-                alt="img"
-              />
-            </div>
-            <span className="temperature">
-              {celcius ? info.current.temp_c : info.current.temp_f}
-              <span className="celcius">{celcius ? "℃" : "℉"}</span>
-            </span>
-            <p className="time">
-              <strong>{now}</strong>, {hour}:{minute}
-            </p>
-            <hr />
-            <p className="weather-condition">{info.current.condition.text}</p>
-            <div className="place-container">
-              <p className="place">{info.location.name}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="more-info-container">
-        <div className="more-info">
-          <nav>
-            <div className="links">
-              <a href="/">Today</a>
-              <a href="/week">Week</a>
-            </div>
-            <div className="temp-mode">
-              <button
-                className="active"
-                id="celcius-btn"
-                onClick={() => {
-                  setCelcius(true);
-                  setActive("celcius-btn", "fahrenheit-btn");
-                }}
-              >
-                °C
-              </button>
-              <button
-                id="fahrenheit-btn"
-                onClick={() => {
-                  setCelcius(false);
-                  setActive("fahrenheit-btn", "celcius-btn");
-                }}
-              >
-                °F
-              </button>
-            </div>
-          </nav>
-          <div className="today">
-            <h1>Today's Highlights</h1>
-          </div>
-        </div>
-      </div>
-    </>
-  );
 };
 
 function App() {
@@ -99,6 +23,7 @@ function App() {
 
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
+  const [place, setPlace] = useState();
 
   const week = [
     "Sunday",
@@ -109,6 +34,7 @@ function App() {
     "Friday",
     "Saturday",
   ];
+
   const date = new Date();
   const now = week[date.getDay()];
   const hour = date.getHours();
@@ -123,24 +49,50 @@ function App() {
 
   useEffect(() => {
     const getWeatherInfo = async () => {
-      const url = `${baseUrl}/current.json?key=${apiKey}&q=${latitude},${longitude}`;
+      let url;
+
+      if (place) {
+        url = `${baseUrl}/forecast.json?key=${apiKey}&q=${place}&days=7`;
+      } else {
+        url = `${baseUrl}/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=7`;
+      }
+
       const data = await getData(url);
       setWeather(data);
     };
 
     getWeatherInfo();
-  }, [latitude, longitude]);
+  }, [latitude, longitude, place]);
 
   console.log(weather);
+
+  const input = useRef();
+
+  const getInputValue = () => {
+    const val = input.current.value;
+
+    if (val === "") {
+      alert("Please enter a place");
+    }
+    setPlace(val);
+  };
 
   return (
     <div className="App">
       <div className="container">
         {typeof weather !== "undefined" ? (
-          <Weather info={weather} hour={hour} minute={minute} now={now} />
+          <Weather
+            info={weather}
+            hour={hour}
+            minute={minute}
+            now={now}
+            inputRef={input}
+            searchBtnClick={getInputValue}
+          />
         ) : (
           <h1>Error! Pls allow location or refresh</h1>
         )}
+        <div></div>
       </div>
     </div>
   );
