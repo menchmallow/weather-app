@@ -48,6 +48,9 @@ body {
   padding: 2%;
 }
 
+.search-btn:hover {
+  cursor: pointer;
+}
 .img-container {
   display: flex;
   justify-content: center;

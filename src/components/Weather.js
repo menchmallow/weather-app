@@ -104,9 +104,12 @@ const Weather = ({ info, hour, minute, now, inputRef, searchBtnClick }) => {
       <div className="weather-container">
         <div className="weather-card">
           <div className="search-container">
-            <button onClick={searchBtnClick}>
-              <span className="material-symbols-outlined">search</span>
-            </button>
+            <span
+              className="material-symbols-outlined search-btn"
+              onClick={searchBtnClick}
+            >
+              search
+            </span>
             <input
               type="text"
               placeholder="Search for places..."

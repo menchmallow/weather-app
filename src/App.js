@@ -14,7 +14,7 @@ const getData = async (url) => {
       return json;
     }
   } catch (err) {
-    alert("Place not found");
+    console.log(err);
   }
 };
 
@@ -69,12 +69,14 @@ function App() {
   const input = useRef();
 
   const getInputValue = () => {
-    const val = input.current.value;
+    let val = input.current.value;
 
     if (val === "") {
       alert("Please enter a place");
     }
     setPlace(val);
+
+    input.current.value = "";
   };
 
   return (
