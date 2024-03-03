@@ -11,35 +11,50 @@ body {
 
 .App {
   box-sizing: border-box;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .container {
   background-color: white;
-  width: 80%;
-  height: 80vh;
-  border-radius: 15px;
   display: flex;
+  width: 88vw;
+  height: 88vh;
+  border-radius: 35px;
 }
 
 .weather-container {
-  width: 25%;
-  height: 96.5%;
-  margin: 2.5%;
+  width: 25vw;
+  overflow: hidden;
 }
 
 .weather-card {
-  width: 100%;
-  height: 96.5%;
+  margin: 10%;
+  height: 100%;
 }
 
-#weather-img {
-  max-width: 100%;
-  width: 70%;
+.hr-min {
+  opacity: 0.5;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container input {
+  width: 100%;
+  border: none;
+  padding: 2%;
+}
+
+.search-btn:hover {
+  cursor: pointer;
 }
 
 .img-container {
@@ -48,77 +63,297 @@ body {
   align-items: center;
 }
 
-.more-info {
-  width: 100%;
+.img-container img {
+  max-width: 100%;
+  width: 80%;
+}
+
+.img-container {
+  margin: 10%;
 }
 
 .temperature {
   font-size: 4rem;
   display: flex;
-  align-items: center;
 }
 
 .celcius {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .time {
-  font-size: 1.2rem;
-}
-
-.search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2%;
-}
-
-.search-container input {
-  width: 80%;
-  border: none;
-  padding: 2%;
+  font-size: 1.1rem;
 }
 
 .more-info-container {
-  background-color: rgb(243, 243, 243);
-  border-radius: 15px;
+  background-color: rgb(245, 245, 245);
   width: 100%;
+  border-radius: 35px;
+  overflow-y: auto;
 }
 
 .more-info {
-  box-sizing: content-box;
-  margin: 2%;
-}
-
-.place-container {
-  margin-top: 10vh;
-  height: 10%;
-}
-
-.place {
-  background-color: rgb(236, 236, 236);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.weather-condition {
-  font-size: 1.5rem;
+  margin: 3%;
 }
 
 nav {
   display: flex;
+  font-size: 1.2rem;
 }
 
-nav a {
+nav span {
   text-decoration: none;
-  color: gray;
-  font-size: 1.2rem;
+  opacity: 0.5;
+  font-weight: 500;
+}
+
+nav span:hover {
+  cursor: pointer;
+}
+
+.active-nav {
+  opacity: 1;
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.1rem;
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
 }
 
 .temp-mode {
   margin-left: auto;
+  display: flex;
+  gap: 1rem;
+}
+
+.temp-btn {
+  background-color: white;
+  border-radius: 50%;
+  border: none;
+  transform: scale(1.3);
+}
+
+.temp-btn:hover {
+  cursor: pointer;
+}
+
+.sun img {
+  max-width: 18%;
+}
+
+.sunrise {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.sunset {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.info-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: white;
+  margin: 2%;
+  padding: 2%;
+  width: 15vw;
+  border-radius: 25px;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  opacity: 0.5;
+}
+
+.card-info {
+  font-size: 1.8rem;
+}
+
+.card-info-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2rem;
+}
+
+.card-info-container img {
+  max-width: 30%;
+  object-fit: contain;
+  transform: scale(0.6);
+}
+
+.active {
+  color: white;
+  background-color: black;
+}
+
+.week {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2%;
+}
+
+.week-card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  margin: 0.5%;
+  border-radius: 25px;
+}
+
+.active-week {
+  background-color: rgb(190, 190, 190);
+  color: white;
+}
+
+footer {
+  position: relative;
+  left: -38.5vw;
+  top: 2vh;
+  font-size: 0.8rem;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
+  opacity: 0.5;
+  display: block;
+}
+
+footer a:hover {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  .container {
+    flex-direction: column;
+    width: 95vw;
+    gap: 2rem;
+    background-color: transparent;
+  }
+
+  .weather-container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 35px;
+  }
+
+  .weather-card {
+    margin: 5%;
+  }
+
+  .search-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .img-container {
+    justify-content: center;
+    margin: 2%;
+  }
+
+  #weather-img {
+    max-width: 30%;
+  }
+
+  .temperature {
+    font-size: 3rem;
+    justify-content: center;
+  }
+
+  .celcius {
+    font-size: 2rem;
+  }
+
+  .time {
+    text-align: center;
+    font-size: 1rem;
+    margin: 2%;
+  }
+
+  .more-info-container {
+    height: 100%;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .info-cards {
+    flex-direction: column;
+    margin-top: 5%;
+  }
+
+  .card {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 1%;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .card-info-container img {
+    max-width: 20%;
+  }
+
+  nav {
+    box-sizing: border-box;
+  }
+
+  .temp-mode {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .temp-mode button {
+    border-radius: 100%;
+    padding: 2%;
+  }
+
+  .week-card img {
+    max-width: 80%;
+  }
+
+  .week-card {
+    border-radius: 10px;
+    font-size: 0.8rem;
+    width: 100%;
+    margin: 2%;
+    background: transparent;
+  }
+
+  .week {
+    gap: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .week {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  footer {
+    font-size: 0.8rem;
+    left: -20vw;
+  }
 }
